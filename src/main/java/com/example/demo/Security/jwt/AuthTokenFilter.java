@@ -8,7 +8,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.example.demo.security.JwtUtils;
 
 import java.io.IOException;
 
@@ -29,13 +28,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         String jwt = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7); //remover bearer
+            jwt = authorizationHeader.substring(7); // Remover "Bearer "
             email = jwtUtils.extractEmail(jwt);
         }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             if (jwtUtils.isTokenValid(jwt)) {
-
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         email, null, null);
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

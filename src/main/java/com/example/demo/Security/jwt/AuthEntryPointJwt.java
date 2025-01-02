@@ -23,7 +23,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-        // Crear un objeto JSON de error
+
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", new Date());
         body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
@@ -31,7 +31,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         body.put("message", authException.getMessage());
         body.put("path", request.getServletPath());
 
-        // Escribir la respuesta JSON
+
         response.getOutputStream().println(new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsString(body));
     }
 }
