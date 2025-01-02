@@ -18,16 +18,20 @@ public class AlertaController {
     @Autowired
     private AlertaService alertaService;
 
-    // todas las alertas
+
     @GetMapping
     public List<Alerta> getAllAlertas(){
         return alertaService.getAllAlertas();
     }
 
-    // alertas por nivel
+
     @GetMapping("/{nivel}")
     public List<Alerta> getAlertasByNivel(@PathVariable AlertaNivel nivel){
         return alertaService.getAlertasByNivel(nivel);
+    }
+    @GetMapping("/deshabilitados")
+    public List<Alerta> getSensoresDeshabilitados() {
+        return alertaService.getAlertasByNivel(AlertaNivel.DESHABILITADO);
     }
 
 
